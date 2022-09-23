@@ -47,12 +47,14 @@ function clearNode(parent) {
 }
 
 async function startFunction() {
-  let search = $("submit-data");
+  let search = $("s-form");
   let dataContainer = $("dataS");
-  search.addEventListener("click", function () {
+  search.addEventListener("submit", function handleSubmit(event) {
+    event.preventDefault();
     clearNode(dataContainer);
-    let show = $("input-show").value;
 
+    let show = $("input-show").value;
+    console.log(show);
     let url = "https://api.tvmaze.com/search/shows?q=" + show;
     fetchData(url)
       .then((res) => {
