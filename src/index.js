@@ -6,7 +6,7 @@ function $(x) {
 }
 
 async function fetchData(url) {
-  let data = null;
+  let data;
   data = await fetch(url)
     .then((response) => response.json())
     .catch((error) => {
