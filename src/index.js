@@ -7,9 +7,12 @@ function $(x) {
 
 async function fetchData(url) {
   let data = null;
-  try {
-    data = await fetch(url).then((response) => response.json());
-  } catch {}
+  data = await fetch(url)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.log(error);
+    });
+
   return data;
 }
 
@@ -21,6 +24,9 @@ async function getImage(showImageURL, container) {
     .then((myBlob) => {
       const objectURL = URL.createObjectURL(myBlob);
       img1.src = objectURL;
+    })
+    .catch((error) => {
+      return Promise.reject();
     });
   return img1;
 }
@@ -54,7 +60,6 @@ async function startFunction() {
     clearNode(dataContainer);
 
     let show = $("input-show").value;
-    console.log(show);
     let url = "https://api.tvmaze.com/search/shows?q=" + show;
     fetchData(url)
       .then((res) => {
@@ -69,6 +74,9 @@ async function startFunction() {
           );
         }
       })
-      .then(console.log("done"));
+      .then(console.log("done"))
+      .catch((error) => {
+        return Promise.reject();
+      });
   });
 }
