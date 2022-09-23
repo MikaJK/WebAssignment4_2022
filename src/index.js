@@ -1,18 +1,9 @@
 import "./styles.css";
 
-document.getElementById("app").innerHTML = ``;
-
+startFunction();
 function $(x) {
   return document.getElementById(x);
 }
-/*<div class="show-data"> 
-    <img > 
-    <div class="show-info"> 
-        <h1>[Show title]</h1> 
-        <p>[Show summary]</p> 
-    </div> 
-</div>  
-url=https://api.tvmaze.com/search/shows?q=*/
 
 async function fetchData(url) {
   let data = null;
@@ -30,17 +21,11 @@ async function getImage(showImageURL, container) {
     .then((myBlob) => {
       const objectURL = URL.createObjectURL(myBlob);
       img1.src = objectURL;
-      //container.appendChild(img1);
     });
   return img1;
 }
 
 async function addToDocument(container, showName, showSUmmary, showImageURL) {
-  /* console.log("show name" + showName);
-  console.log("show summary: " + showSUmmary);
-   console.log(
-    "show image: " + showImageURL
-  );*/
   const img1 = await getImage(showImageURL);
 
   const infoDiv = document.createElement("div");
@@ -49,7 +34,6 @@ async function addToDocument(container, showName, showSUmmary, showImageURL) {
   showTitle.innerHTML = showName;
 
   infoDiv.appendChild(showTitle);
-  //showSUmmary = new DOMParser().parseFromString(showSUmmary, "text/xml");
 
   infoDiv.innerHTML = infoDiv.innerHTML + showSUmmary;
   container.appendChild(img1);
@@ -62,8 +46,6 @@ function clearNode(parent) {
   }
 }
 
-startFunction();
-
 async function startFunction() {
   let search = $("submit-data");
   let dataContainer = $("dataS");
@@ -72,7 +54,7 @@ async function startFunction() {
     let show = $("input-show").value;
 
     let url = "https://api.tvmaze.com/search/shows?q=" + show;
-    var data = fetchData(url)
+    fetchData(url)
       .then((res) => {
         if (res.length === 0) {
           return;
@@ -88,9 +70,3 @@ async function startFunction() {
       .then(console.log("done"));
   });
 }
-
-/*console.log(
-        JSON.stringify(
-          res[0].show.name + res[0].show.summary + res[0].show.image
-        )
-      ); */
